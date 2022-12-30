@@ -1,21 +1,27 @@
 # THIS IS MAIN FILE I NAMED AS Send_OTP_Using_Mail_2, this is version 2.
+
 import GetPass #Importing Password,Email From another file.
 import random
 import smtplib #This library is used for sending message using email.
 import time
+
 password = GetPass.pwd
 Sender_Mail = GetPass.email
+
 def EmailValidation(Email):
     True_Str1,True_Str2 = "yahoo" in Email,"gmail" in Email # This will store boolean values.
+    
     if (True_Str1 or True_Str2) and( "@" in Email and "." in Email and "com" in Email):
         print("\nNo Error Found in Email!")
     else:
         raise AssertionError("Please enter valid Domain Name!")
+        
 def genrateOtp():
     Length = int(input("Enter Length of OTP: "))
     otp = ''.join([str(random.randint(0,9)) for i in range(Length)]) #Generated OTP using
     random.randint()
     return otp
+
 def sendMail(Name,Email,otp):
     server = smtplib.SMTP('smtp.gmail.com',587) #Created gmail's server, and connected to gmail API
     # Adding transfer layered security
@@ -27,6 +33,7 @@ def sendMail(Name,Email,otp):
         server.sendmail(Sender_Mail,Email,msg)
         print("Email Sent!")
         server.quit()
+        
 def validateOTP(OT):
 # This function will check entered otp is valid or not!
 # This function also have Time Limit of 30 Sec
